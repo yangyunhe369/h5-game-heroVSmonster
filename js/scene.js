@@ -50,14 +50,13 @@ class Role{
       attack: null,                                        // 攻击动画对象
       hurt: null,                                          // 受伤动画对象
       die: null,                                           // 死亡动画对象
+      canMove: true,                                       // 能否移动
       isFlipX: false,                                      // 是否翻转画布绘制图片，用于绘制人物朝右动画
-      isLeftMove: true,                                    // 能否左移
-      isRightMove: true,                                   // 能否右移
       isAttacking: false,                                  // 是否处于攻击状态
       isDie: false,                                        // 是否死亡，血量降为0即死亡
       direction: null,                                     // 角色朝向
       state: 1,                                            // 保存当前状态值，默认为0
-      state_IDLE: 1,                                       // 站立不动状态
+      state_IDLE: 1,                                       // 站立状态
       state_RUN: 2,                                        // 奔跑状态
       state_ATTACK: 3,                                     // 攻击状态
       state_HURT: 4,                                       // 受伤状态
@@ -69,11 +68,13 @@ class Role{
    * 初始化方法
    * 对角色的站位方向、状态、不同姿势动画序列进行初始化
    */
-  init () {
+  init (info) {
     let self = this
     // 角色初始站位方向，状态
-    self.direction = 'right'
+    info.type === 'hero' ? self.direction = 'right' : self.direction = 'left'
+    // 是否翻转绘制角色，根据角色朝向判断
     self.isFlipX = self.direction === 'left' ? false : true
+    // 角色默认状态值为1，站立状态
     self.state = 1
     // 角色站立
     self.idle = new Animation(self.type, 'idle', 8)
@@ -124,10 +125,11 @@ class Role{
     // 设置当前帧动画对象
     if (game.state !== game.state_STOP) { // 运动时，逐帧显示图片
       if (stateName === 'hurt' && self[stateName].imgIdx === 7) { // 受伤时，执行完一套动画切换为站立状态后允许移动
-        self[stateName].img = self[stateName].images[self[stateName].imgIdx]
+        // 角色状态改为站立状态
         self.state = self.state_IDLE
-        self.isLeftMove = self.isRightMove = true
+        self.canMove = true
       } else if (stateName === 'die' && self[stateName].imgIdx === 7) {
+        // 游戏状态改为结束状态
         game.state = game.state_GAMEOVER
         self[stateName].img = self[stateName].images[7]
       } else {

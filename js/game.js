@@ -195,7 +195,7 @@ class Game {
     let game = this
     for (let item of roleList) {
       game.registerAction(item.keyCode, function () {
-        if (game.state === game.state_RUNNING && item.role.isLeftMove && item.role.isRightMove) {
+        if (game.state === game.state_RUNNING && item.role.canMove) {
           // 设置当前角色朝向
           item.role.direction = item.direction
           // 判断是否需要翻转角色动画
@@ -246,7 +246,7 @@ class Game {
               item.role.animation(game, 'attack')
             }
             // 禁止左右移动
-            item.role.isLeftMove = item.role.isRightMove = false
+            item.role.canMove = false
           } else if (game.keydowns[item.keyCode] === 'up') {
             // 取消攻击动画
             if (item.role.attack.imgIdx === 7) { // 执行一次完整动画后停止
@@ -260,7 +260,7 @@ class Game {
                 game.checkAttack(role, monster, hero)
               }
               // 允许左右移动
-              item.role.isLeftMove = item.role.isRightMove = true
+              item.role.canMove = true
             }
           }
         }
@@ -299,7 +299,7 @@ class Game {
         // 执行受伤动画
         role2.animation(game, 'die')
         // 禁止移动
-        role2.isLeftMove = role2.isRightMove = false
+        role2.canMove = false
         role2.life -= 1
         // 改变角色死亡状态
         role2.isDie = true
@@ -311,7 +311,7 @@ class Game {
         // 执行受伤动画
         role2.animation(game, 'hurt')
         // 禁止移动
-        role2.isLeftMove = role2.isRightMove = false
+        role2.canMove = false
         role2.life -= 1
       }
     }

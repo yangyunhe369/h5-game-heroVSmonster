@@ -4,7 +4,7 @@
 let _main = {
   hero: null,                               // 英雄实例对象
   hero_info: {                              // 英雄初始化参数
-    type: 'hero',
+    type: 'hero',                           // 角色类型
     x: 40,                                  // x轴坐标
     y: 350,                                 // y轴坐标
     w: 100,                                 // 图片宽度
@@ -12,7 +12,7 @@ let _main = {
   },
   monster: null,                            // 怪兽实例对象
   monster_info: {                           // 怪兽初始化参数
-    type: 'monster',
+    type: 'monster',                        // 角色类型  
     x: 140,                                 // 怪兽x轴坐标
     y: 350,                                 // 怪兽y轴坐标
     w: 100,                                 // 图片宽度
@@ -39,12 +39,12 @@ let _main = {
     // 创建 hero 类
     self.hero = new Role(self, self.hero_info)
     // 创建 hero 动画序列
-    self.hero.init()
+    self.hero.init(self.hero_info)
 
     // 创建 monster 类
     self.monster = new Role(self, self.monster_info)
     // 创建 monster 动画序列
-    self.monster.init()
+    self.monster.init(self.monster_info)
 
     // 创建游戏引擎类
     self.game = new Game(60)
