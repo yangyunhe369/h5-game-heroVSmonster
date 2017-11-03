@@ -4,18 +4,18 @@
 class Game {
   constructor (fps = 60) {
     let g = {
-      actions: {},                                                  // 
-      keydowns: {},                                                 // 
-      state: 1,                                                     // 游戏状态值，初始默认为1
-      state_START: 1,                                               // 开始游戏
-      state_RUNNING: 2,                                             // 游戏开始运行
-      state_STOP: 3,                                                // 暂停游戏
+      actions: {},                                                  // 按键事件方法集，并在按键事件触发时调用对应方法
+      keydowns: {},                                                 // 按键事件生成对象集
+      state: 1,                                                     // 游戏状态值，初始默认为 1
+      state_START: 1,                                               // 游戏初始化
+      state_RUNNING: 2,                                             // 游戏开始
+      state_STOP: 3,                                                // 游戏暂停
       state_GAMEOVER: 4,                                            // 游戏结束
       state_UPDATE: 5,                                              // 游戏通关
-      canvas: document.getElementById("canvas"),                    // canvas元素
-      context: document.getElementById("canvas").getContext("2d"),  // canvas画布
+      canvas: document.getElementById("canvas"),                    // canvas 元素
+      context: document.getElementById("canvas").getContext("2d"),  // canvas 画布
       timer: null,                                                  // 轮询定时器
-      fps: fps,                                                     // 动画帧数，默认60
+      fps: fps,                                                     // 动画帧数，默认 60
     }
     Object.assign(this, g)
   }
@@ -76,26 +76,8 @@ class Game {
    * obj: 绘制对象
    */
   drawImage (obj) {
-    let state = obj.state,
-        stateName = ''
-    // 判断绘制不同状态下的对象
-    switch (state) {
-      case obj.state_IDLE:
-        stateName = 'idle'
-        break
-      case obj.state_RUN:
-        stateName = 'run'
-        break
-      case obj.state_ATTACK:
-        stateName = 'attack'
-        break
-      case obj.state_HURT:
-        stateName = 'hurt'
-        break
-      case obj.state_DIE:
-        stateName = 'die'
-        break     
-    }
+    let state = obj.state,                            // 当前角色状态值
+        stateName = obj.switchState(obj.state)        // 判断并获取当前动画对象名称
     if (obj.isFlipX) { // 是否水平翻转图像并绘制，true 翻转且角色朝右，false 不翻转且角色朝左
       let x = obj.x + obj.w / 2
       // 把当前状态的一份拷贝压入到一个保存图像状态的栈中
@@ -112,10 +94,9 @@ class Game {
   }
   // 游戏结束执行方法
   drawGameOver (hero, monster) {
-    let info = ''   // 展示信息
-    // 根据游戏获胜角色不同渲染不同信息
+    let info = ''   // 游戏结束提示信息
     if (hero.isDie) {
-      info = '恭喜怪兽获得胜利'     
+      info = '恭喜怪兽获得胜利'
     }
     if (monster.isDie) {
       info = '恭喜英雄获得胜利'
@@ -335,7 +316,7 @@ class Game {
       g.actions[key] = callback
     }
     /**
-     * 为英雄和怪兽注册按键移动事件
+     * 为 hero 和 monster 注册按键移动事件
      * hero 按键事件，对应 W、S、A、D
      * monster 按键事件，对应 up、down、left、right方向键
      */

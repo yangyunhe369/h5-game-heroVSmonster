@@ -2,19 +2,19 @@
  * 游戏运行主函数
  */
 let _main = {
-  hero: null,                               // 英雄实例对象
-  hero_info: {                              // 英雄初始化参数
+  hero: null,                               // hero 实例对象
+  hero_info: {                              // hero 初始化参数
     type: 'hero',                           // 角色类型
     x: 40,                                  // x轴坐标
     y: 350,                                 // y轴坐标
     w: 100,                                 // 图片宽度
     h: 109,                                 // 图片高度
   },
-  monster: null,                            // 怪兽实例对象
-  monster_info: {                           // 怪兽初始化参数
+  monster: null,                            // monster 实例对象
+  monster_info: {                           // monster 初始化参数
     type: 'monster',                        // 角色类型  
-    x: 140,                                 // 怪兽x轴坐标
-    y: 350,                                 // 怪兽y轴坐标
+    x: 140,                                 // monster x轴坐标
+    y: 350,                                 // monster y轴坐标
     w: 100,                                 // 图片宽度
     h: 113,                                 // 图片高度
   },
@@ -33,7 +33,7 @@ let _main = {
   },
   start: function () {                      // 游戏主程序
     let self = this
-    // 随机生成英雄，怪兽坐标
+    // 随机生成英雄，monster 坐标
     self.rollPostion()
 
     // 创建 hero 类

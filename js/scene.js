@@ -4,7 +4,7 @@
 class Animation{
   constructor (type, action, fps) {
     let a = {
-      type: type,                                        // 角色类型，怪兽或英雄
+      type: type,                                        // 角色类型，hero || monster
       action: action,                                    // 根据传入动作生成不同动画对象数组
       images: [],                                        // 当前引入角色图片对象数组
       img: null,                                         // 当前显示角色图片
@@ -37,9 +37,9 @@ class Role{
   constructor (_main, obj) {
     let h = {
       _main: _main,                                        // 游戏主函数对象
-      type: obj.type,                                      // 角色类型，怪兽或英雄
-      x: obj.x,                                            // x轴坐标
-      y: obj.y,                                            // y轴坐标
+      type: obj.type,                                      // 角色类型，hero || monster
+      x: obj.x,                                            // x 轴坐标
+      y: obj.y,                                            // y 轴坐标
       w: obj.w,                                            // 角色图片宽度
       h: obj.h,                                            // 角色图片高度
       speedX: 3,                                           // 角色x轴移动速度
@@ -53,7 +53,7 @@ class Role{
       canMove: true,                                       // 能否移动
       isFlipX: false,                                      // 是否翻转画布绘制图片，用于绘制人物朝右动画
       isAttacking: false,                                  // 是否处于攻击状态
-      isDie: false,                                        // 是否死亡，血量降为0即死亡
+      isDie: false,                                        // 是否死亡，血量降为 0 即死亡
       direction: null,                                     // 角色朝向
       state: 1,                                            // 保存当前状态值，默认为0
       state_IDLE: 1,                                       // 站立状态
@@ -93,29 +93,30 @@ class Role{
     self.die.create()
   }
   /**
+   * 判断角色状态并返回对应动画对象名称方法
+   */
+  switchState (state) {
+    let self = this
+    switch (state) {
+      case self.state_IDLE:
+        return 'idle'
+      case self.state_RUN:
+        return 'run'
+      case self.state_ATTACK:
+        return 'attack'
+      case self.state_HURT:
+        return 'hurt'
+      case self.state_DIE:
+        return 'die'
+    }
+  }
+  /**
    * 角色运行动画切换方法
    * game: 游戏对象
    */
   move (game) {
     let self = this,
-        stateName = ''
-    switch (self.state) {
-      case self.state_IDLE:
-        stateName = 'idle'
-        break
-      case self.state_RUN:
-        stateName = 'run'
-        break
-      case self.state_ATTACK:
-        stateName = 'attack'
-        break
-      case self.state_HURT:
-        stateName = 'hurt'
-        break
-      case self.state_DIE:
-        stateName = 'die'
-        break
-    }
+        stateName = self.switchState(self.state)
     // 累加动画计数器
     self[stateName].count += 1
     // 设置角色动画运行速度
