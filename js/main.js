@@ -5,20 +5,21 @@ let _main = {
   hero: null,                               // hero 实例对象
   hero_info: {                              // hero 初始化参数
     type: 'hero',                           // 角色类型
-    x: 40,                                  // x轴坐标
-    y: 350,                                 // y轴坐标
+    x: 40,                                  // x 轴坐标
+    y: 350,                                 // y 轴坐标
     w: 100,                                 // 图片宽度
     h: 109,                                 // 图片高度
   },
   monster: null,                            // monster 实例对象
   monster_info: {                           // monster 初始化参数
     type: 'monster',                        // 角色类型  
-    x: 140,                                 // monster x轴坐标
-    y: 350,                                 // monster y轴坐标
+    x: 900,                                 // monster x 轴坐标
+    y: 100,                                 // monster y 轴坐标
     w: 100,                                 // 图片宽度
     h: 113,                                 // 图片高度
   },
   game: null,                               // 游戏引擎对象
+  fps: 60,                                  // 游戏运行每秒帧数
   rollPostion: function () {                // 随机角色坐标位置
     let self = this,
         canvas = document.getElementById('canvas'),
@@ -47,7 +48,7 @@ let _main = {
     self.monster.init(self.monster_info)
 
     // 创建游戏引擎类
-    self.game = new Game(60)
+    self.game = new Game(self.fps)
     self.game.init(self)
   }
 }

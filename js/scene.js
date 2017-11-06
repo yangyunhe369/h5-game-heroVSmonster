@@ -55,7 +55,7 @@ class Role{
       isAttacking: false,                                  // 是否处于攻击状态
       isDie: false,                                        // 是否死亡，血量降为 0 即死亡
       direction: null,                                     // 角色朝向
-      state: 1,                                            // 保存当前状态值，默认为0
+      state: 1,                                            // 保存当前状态值，默认为 0
       state_IDLE: 1,                                       // 站立状态
       state_RUN: 2,                                        // 奔跑状态
       state_ATTACK: 3,                                     // 攻击状态

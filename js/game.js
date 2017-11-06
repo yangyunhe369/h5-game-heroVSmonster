@@ -11,7 +11,6 @@ class Game {
       state_RUNNING: 2,                                             // 游戏开始
       state_STOP: 3,                                                // 游戏暂停
       state_GAMEOVER: 4,                                            // 游戏结束
-      state_UPDATE: 5,                                              // 游戏通关
       canvas: document.getElementById("canvas"),                    // canvas 元素
       context: document.getElementById("canvas").getContext("2d"),  // canvas 画布
       timer: null,                                                  // 轮询定时器
@@ -127,14 +126,8 @@ class Game {
         g.actions[key]()
       }
     }
-    // 判断游戏开始时执行事件
-    if (g.state === g.state_RUNNING) { // 游戏运行
-      // 角色移动动画
-      hero.move(g)
-      monster.move(g)
-      // 绘制所有游戏素材 
-      g.drawAll(hero, monster)
-    } else if (g.state === g.state_START){ // 游戏开始
+    // 判断游戏状态并执行相应事件
+    if (g.state === g.state_START){ // 游戏开始
       // 角色移动动画
       hero.move(g)
       monster.move(g)
@@ -145,6 +138,12 @@ class Game {
       g.context.fillStyle = 'red'
       g.context.font = '48px Microsoft YaHei'
       g.context.fillText('请按空格键开始游戏', 284, 226)
+    } else if (g.state === g.state_RUNNING) { // 游戏运行
+      // 角色移动动画
+      hero.move(g)
+      monster.move(g)
+      // 绘制所有游戏素材 
+      g.drawAll(hero, monster)
     } else if (g.state === g.state_STOP) { // 游戏暂停
       // 绘制所有游戏素材
       g.drawAll(hero, monster)
