@@ -1,3 +1,6 @@
+/* by：弦云孤赫——David Yang
+** github - https://github.com/yangyunhe369
+*/
 /**
  * 游戏运行主函数
  */
@@ -34,7 +37,7 @@ let _main = {
   },
   start: function () {                      // 游戏主程序
     let self = this
-    // 随机生成英雄，monster 坐标
+    // 随机生成 hero，monster 坐标
     self.rollPostion()
 
     // 创建 hero 类

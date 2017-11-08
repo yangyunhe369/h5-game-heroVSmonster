@@ -1,3 +1,6 @@
+/* by：弦云孤赫——David Yang
+** github - https://github.com/yangyunhe369
+*/
 // 封装打印日志方法
 const log = console.log.bind(console)
 // 生成图片对象方法

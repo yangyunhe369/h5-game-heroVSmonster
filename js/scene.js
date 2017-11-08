@@ -1,3 +1,6 @@
+/* by：弦云孤赫——David Yang
+** github - https://github.com/yangyunhe369
+*/
 /**
  * 动画类
  */
@@ -45,6 +48,15 @@ class Role{
       speedX: 3,                                           // 角色x轴移动速度
       speedY: 3,                                           // 角色y轴移动速度
       life: 8,                                             // 角色血量
+
+      // animation: {  
+      //   idle: null,                                        // 站立动画对象
+      //   run: null,                                         // 奔跑动画对象
+      //   attack: null,                                      // 攻击动画对象
+      //   hurt: null,                                        // 受伤动画对象
+      //   die: null,                                         // 死亡动画对象
+      // },
+
       idle: null,                                          // 站立动画对象
       run: null,                                           // 奔跑动画对象
       attack: null,                                        // 攻击动画对象
